@@ -21,15 +21,13 @@ export default function SideBar() {
     const [channels, setChannels] = useState([])
     const [newChannel, setNewChannel] = useState(1)
     
-    
-
 
     useEffect(() => { 
         const url = "http://localhost:9000/v1/channels"
         Axios.get(url) .then(res => {
             console.log('channels loaded')
-            const channels = res.data;
-            setChannels(channels); 
+            const channelList = res.data;
+            setChannels(channelList); 
           })     
     
     }, [newChannel])

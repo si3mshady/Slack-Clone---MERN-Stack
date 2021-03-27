@@ -65,7 +65,9 @@ app.get('/', (req,res) => {
 })
 
 
-app.get('/v1/channels', (req,res) => {
+app.get('/v1/channels/', (req,res) => {
+
+
     Channels.find((err,data) => {
         if (!err) {
             console.log(typeof(data))
@@ -85,9 +87,33 @@ app.get('/v1/channels', (req,res) => {
     } )
 })
 
+app.get('/v1/channels/find', (req,res) => {
+
+
+    Channels.find((err,data) => {
+        if (!err) {
+            console.log(typeof(data))
+            
+            console.log(data)    
+                            
+            // 201 -> created 
+            res.status(201).send(data)
+            
+
+        } else {
+            console.log(err)
+            res.status(500).send(err)
+        }
+
+        
+    } )
+})
+
+
+
+
 // add channel 
 app.post('/v1/channels/add', (req,res) => {
-
     const newChannel = req.body
 
     Channels.create(newChannel, (err, data) => {
@@ -99,6 +125,22 @@ app.post('/v1/channels/add', (req,res) => {
 
         } else {
             console.log('Entry unsuccessful')
+            console.log(err)
+        }
+    })
+})
+
+
+app.post('/v1/channels/getChannelDetail', (req,res) => {
+    const requestData = req.body
+
+    Channels.findOne(requestData, (err, data) => {
+        if (!err) {          
+            console.log(`${data} retreived from the database`)                 
+            res.status(201).send(data)
+
+        } else {
+            console.log('There was an error locating data')
             console.log(err)
         }
     })
