@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import SideBarOption from './SideBarOption'
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
 import InboxIcon from '@material-ui/icons/Inbox';
@@ -10,13 +10,29 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import AddIcon from '@material-ui/icons/Add';
 import SportsGolfIcon from '@material-ui/icons/SportsGolf';
 import CreateIcon from '@material-ui/icons/Create';
 import starterData from '../starterData'
+import Axios from 'axios'
 import '../Sidebar.css'
 
 export default function SideBar() {
     const [channels, setChannels] = useState([])
+    const [newChannel, setNewChannel] = useState(1)
+    
+    
+
+
+    useEffect(() => { 
+        const url = "http://localhost:9000/v1/channels"
+        Axios.get(url) .then(res => {
+            console.log('channels loaded')
+            const channels = res.data;
+            setChannels(channels); 
+          })     
+    
+    }, [newChannel])
     
     return (
         <div className="sidebar">
@@ -42,21 +58,13 @@ export default function SideBar() {
             <SideBarOption Icon={ExpandLessIcon} title="Show Less" /> 
 
             <hr />
-            <SideBarOption Icon={ExpandMoreIcon} title="Channels" />            
-             
-            
+            <SideBarOption Icon={ExpandMoreIcon}  title="Channels" />            
+                   
             <hr />
-            {starterData.map(channel => (<SideBarOption title={channel.name} /> ))}
+            <SideBarOption Icon={AddIcon} setNewChannel={setNewChannel} addChannelOption title="Add Channel" /> 
+            {channels.map(channel => (<SideBarOption title={channel.name} /> ))}
             
         </div>
     )
 }
 
-
-
-// {
-//     "rules": {
-//       ".read": "now < 1619326800000",  // 2021-4-25
-//       ".write": "now < 1619326800000",  // 2021-4-25
-//     }
-//   }
