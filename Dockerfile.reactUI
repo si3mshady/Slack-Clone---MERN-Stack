@@ -1,0 +1,15 @@
+FROM node:alpine as multi-stage-build
+WORKDIR /si3mshady_staging_directory
+COPY ./package.json ./package.json
+COPY ./public ./public
+COPY ./src ./src
+RUN npm install 
+RUN npm run build
+FROM nginx:latest
+ENV EXPRESS_Base_URL=http://localhost:9000/
+LABEL developer=ElliottLamarArnold
+
+COPY --from=multi-stage-build /si3mshady_staging_directory/build /usr/share/nginx/html
+EXPOSE 80
+
+# docker build . -f Dockerfile.node  -t si3mshady/slackclone-fe:1

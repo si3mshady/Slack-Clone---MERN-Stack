@@ -53,6 +53,7 @@ export default function SideBar({user}) {
             <SideBarOption Icon={SportsGolfIcon} title="Golf 24/7" /> 
             <SideBarOption Icon={SportsKabaddiIcon} title="ESPN" /> 
             <SideBarOption Icon={ExpandLessIcon} title="Show Less" /> 
+
             <hr />
             <SideBarOption Icon={ExpandMoreIcon}  title="Channels" />            
                    

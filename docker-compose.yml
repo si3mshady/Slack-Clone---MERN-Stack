@@ -1,0 +1,28 @@
+version: "3.7"  # optional since v1.27.0
+services:
+  #reactApp
+  slackfrontend:
+    image: si3mshady/slackclone-fe:1
+    ports:
+      - "888:80"    #external:internal frontend 
+    depends_on:
+      - db
+  nodebackend:
+    image: si3mshady/slackclone-be:1     
+    ports: 
+      - "9000:9000"    #external:internal 
+    depends_on:
+      - db
+    #avoid the the Error: connect ECONNREFUSED 127.0.0.1:27017 allows the 
+    #nodeserver to wait until database:port are avail before attempting to connect
+              
+  db:
+    volumes:
+      - /Users/ellarnol/localSlackDatabase:/data/db
+    image: mongo:latest
+    ports:
+      - "27017:27017"             
+
+ # database connection url via mongoose "mongodb://db:27017/jl";
+  # netstat -an -ptcp | grep LISTEN  check for listening ports 
+  # docker rm $(docker ps -a -q) --force  - delete all containers - free up ports for dev environment
