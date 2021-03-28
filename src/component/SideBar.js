@@ -17,7 +17,7 @@ import starterData from '../starterData'
 import Axios from 'axios'
 import '../Sidebar.css'
 
-export default function SideBar() {
+export default function SideBar({user}) {
     const [channels, setChannels] = useState([])
     const [newChannel, setNewChannel] = useState(1)
     
@@ -39,7 +39,7 @@ export default function SideBar() {
                         <h2>Si3mshady SlackClone</h2>
                         <h3>
                             <FiberManualRecordIcon  />
-                            Elliott Arnold
+                            {user.email}
                         </h3>
                 </div>
                 

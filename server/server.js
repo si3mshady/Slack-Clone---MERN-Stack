@@ -1,14 +1,16 @@
 import express from 'express';
+import bodyParser from 'body-parser'
 import mongoose from 'mongoose';
-import data from './starterData.js'
-import Channels from './dbModel.js';
-
+import slackChannelModel from './roomModel.js'; //dbmodel
+import userModel from './userModel.js'
+import slackMessageModel from './messageModel.js'
 // app config 
 const app=express();
 const port = 9000;
 
 //middle ware needed to parse json body 
 
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json())
 app.use((req,res,next) => {
     // setting the response headers for open cors access 
@@ -17,8 +19,8 @@ app.use((req,res,next) => {
     next();
 
 })
+// https://www.udemy.com/course/the-complete-web-development-bootcamp/learn/lecture/13559534#overview
 // db config 
-
 const connection = "mongodb://db:27017/slackchannels";
 const localhost = "mongodb://localhost:27017/slackchannels";
 // const connection = "mongodb://mongodb/jl";
@@ -30,22 +32,7 @@ mongoose.connect(localhost, {
  
 }).then(() => {
     console.log('successfully connected to the database');
-    data.forEach(record => {
-        console.log(record)
-    
-        Channels.create(record, (err, data) => {
-            if (!err) {          
-                console.log('Entry successful')
-             
-                console.log(record)        
-    
-            } else {
-                console.log('Entry unsuccessful')
-                console.log(err)
-            }
-        })
-    
-    })
+
 
 
 }).catch(err => {
@@ -58,17 +45,68 @@ mongoose.connect(localhost, {
 // record = json object 
 
 
-
-
 app.get('/', (req,res) => {
     res.status(200).send('Slack Clone')
+})
+
+
+
+app.post('/login', (req,res) => {
+    
+
+    const requestData = req.body
+    
+    // searches for user if found return user data object, if not found then add user to database
+    userModel.findOne(requestData, (err, data) => {
+        if (!err) {             
+
+            if (data !== null ) {
+                console.log('Found user!!!!!!')
+                console.log(data)
+                res.status(201).send(data)
+            }
+            
+            
+            else if (data === null ) {
+                console.log('data was null user does not exist in db: creating')
+                
+                const user = { 
+                    email:  req.body.email,
+                    password: req.body.password
+                }
+                console.log(user)
+
+                const newUser = new userModel(user)
+            
+                newUser.save((err) => {
+                    if (!err) {
+                        console.log(`User ${user} has been registered`)                    
+
+                        res.status(202).send(user)
+                       
+                        
+            
+                    } else {
+                        // there was an error 
+                        res.status(400).send(err)
+            
+                    }
+                })
+            }          
+           
+
+        } 
+    })
+
+
+    // res.status(200).send('Slack Clone')
 })
 
 
 app.get('/v1/channels/', (req,res) => {
 
 
-    Channels.find((err,data) => {
+    slackChannelModel.find((err,data) => {
         if (!err) {
             console.log(typeof(data))
             
@@ -90,7 +128,7 @@ app.get('/v1/channels/', (req,res) => {
 app.get('/v1/channels/find', (req,res) => {
 
 
-    Channels.find((err,data) => {
+    slackChannelModel.find((err,data) => {
         if (!err) {
             console.log(typeof(data))
             
@@ -116,7 +154,7 @@ app.get('/v1/channels/find', (req,res) => {
 app.post('/v1/channels/add', (req,res) => {
     const newChannel = req.body
 
-    Channels.create(newChannel, (err, data) => {
+    slackChannelModel.create(newChannel, (err, data) => {
         if (!err) {          
             console.log('Entry successful')
             console.log(newChannel)   
@@ -134,7 +172,7 @@ app.post('/v1/channels/add', (req,res) => {
 app.post('/v1/channels/getChannelDetail', (req,res) => {
     const requestData = req.body
 
-    Channels.findOne(requestData, (err, data) => {
+    slackChannelModel.findOne(requestData, (err, data) => {
         if (!err) {          
             console.log(`${data} retreived from the database`)                 
             res.status(201).send(data)
@@ -146,6 +184,8 @@ app.post('/v1/channels/getChannelDetail', (req,res) => {
     })
 })
 
+
 app.listen(port, () => console.log(`Listening on port : ${port}`))
 
 
+// docker run -p 27017:27017 -v /Users/ellarnol/localSlackDatabase:/data/db  mongo:latest

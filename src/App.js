@@ -1,26 +1,31 @@
 
-import './App.css';
-import React from 'react'
 
+import React, {useState} from 'react'
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from './component/Header'
 import SideBar from './component/SideBar'
 import Chat from './component/Chat'
+import Login from './component/Login'
+import './App.css';
 
 function App() {
+  const [user, setUser] = useState(null)
   return (
     // BEM naming convention
     <div className="App"> 
    
     <BrowserRouter >
-    <Header />
+    {!user ? <Login setUser={setUser} />: (
+
+      <>
+      <Header />
     <div className="app__body">
-        <SideBar /> 
+        <SideBar user={user} /> 
 
         <Switch>
           <Route path="/room/:roomID">          
             {/* chat component is using use params hook   */}
-            <Chat/>
+            <Chat />
 
           </Route>
 
@@ -28,6 +33,10 @@ function App() {
         
                    
       </div>
+   </>
+
+
+    )}
    
 
     </BrowserRouter>
