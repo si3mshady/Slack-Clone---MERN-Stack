@@ -45,7 +45,7 @@ export default function ChatInput({channelName, channelId, user}) {
                 onChange={e => setInput(e.target.value) }
                 placeholder={`Message #${channelName?.toLowerCase()}`    }
                  />
-                <button type="submit" onClick={sendMessage}>SEND</button>
+                <Button type="submit" onClick={sendMessage}>SEND</Button>
 
             </form>
             

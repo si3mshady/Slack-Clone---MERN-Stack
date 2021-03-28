@@ -36,14 +36,13 @@ export default function Chat({user}) {
                setRoomMessages(details)
              })     
    
-       },[roomID])
+       },[roomMessages])
    
 
 
     return (
         <div className="chat">
-            <h2>You are in room: {roomID}</h2>
-
+            {/* <h2>You are in room: {roomID}</h2> */}
             <div className="chat__header">
                 <div className="chat__headerLeft">
                     <h4 className="chat__channelName">
@@ -60,8 +59,6 @@ export default function Chat({user}) {
                     </p>
 
                 </div>
-
-
             </div>
 
 
@@ -70,24 +67,10 @@ export default function Chat({user}) {
             {roomMessages.map(room => ( <Message 
                     userImage={room.userImage}
                     message={room.message}
-                    user={room.user}                   
-
+                    user={room.user}     
 
                    />) ) } 
-                  
-
-           
-
-
-                   <Message 
-                    userImage="https://i.pinimg.com/600x315/d2/32/98/d23298e8be6b9f7aa533e283228c4c2b.jpg"
-                    message="Great film"
-                    user="si3mshady"
-
-                    
-
-
-                   />
+                 
 
             </div>
 

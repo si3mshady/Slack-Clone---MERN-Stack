@@ -258,9 +258,9 @@ app.get('/v1/channels/findMessage/:roomID', (req,res) => {
 
     slackMessageModel.find(query,(err,data) => {
         if (!err) {
-            console.log(typeof(data))
+            // console.log(typeof(data))
             
-            console.log(data)    
+            // console.log(data)    
                             
             // 201 -> created 
             res.status(201).send(data)
