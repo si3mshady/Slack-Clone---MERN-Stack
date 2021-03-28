@@ -6,10 +6,19 @@ COPY ./src ./src
 RUN npm install 
 RUN npm run build
 FROM nginx:latest
+
+
 ENV EXPRESS_Base_URL=http://localhost:9000/
 LABEL developer=ElliottLamarArnold
 
+FROM  nginx:latest
+# WORKDIR /etc/nginx/conf.d
+
+# COPY default.conf default.conf
+
+WORKDIR /usr/share/nginx/html
 COPY --from=multi-stage-build /si3mshady_staging_directory/build /usr/share/nginx/html
+COPY default.conf default.conf
 EXPOSE 80
 
 # docker build . -f Dockerfile.node  -t si3mshady/slackclone-fe:1

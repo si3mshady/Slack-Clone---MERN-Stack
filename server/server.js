@@ -21,10 +21,10 @@ app.use((req,res,next) => {
 })
 // https://www.udemy.com/course/the-complete-web-development-bootcamp/learn/lecture/13559534#overview
 // db config 
-const connection = "mongodb://db:27017/slackchannels";
-const localhost = "mongodb://localhost:27017/slackchannels";
-// const connection = "mongodb://mongodb/jl";
-mongoose.connect(localhost, {
+// const connection = "mongodb://db:27017/slackchannels";
+const connection = "mongodb://localhost:27017/slackchannels";
+
+mongoose.connect(connection, {
  
     useNewUrlParser: true,
     useCreateIndex: true,

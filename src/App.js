@@ -10,7 +10,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState('si3mshady')  
+  const [user, setUser] = useState('3')  
   return (
     // BEM naming convention
     <div className="App"> 
@@ -26,10 +26,12 @@ function App() {
         <SideBar user={user} /> 
        
         <Switch>
-          <Route path="/room/:roomID">          
-            {/* chat component is using use params hook   */}
+          <Route path="/room/:roomID">                 
             <Chat user={user} />
+          </Route>
 
+          <Route path="/room/">                 
+            <Chat user={user} />
           </Route>
 
         </Switch>

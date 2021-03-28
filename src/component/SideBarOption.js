@@ -20,7 +20,7 @@ export default function SideBarOption({Icon, title, id, setNewChannel, addChanne
             // so this would  redirect us to the room we selected
             // very nice! 
         } else {
-            history.push(title)
+            history.push(`/room/${title}`)
         }
     } 
 
