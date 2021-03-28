@@ -13,7 +13,6 @@ import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddIcon from '@material-ui/icons/Add';
 import SportsGolfIcon from '@material-ui/icons/SportsGolf';
 import CreateIcon from '@material-ui/icons/Create';
-import starterData from '../starterData'
 import Axios from 'axios'
 import '../Sidebar.css'
 
@@ -54,7 +53,6 @@ export default function SideBar({user}) {
             <SideBarOption Icon={SportsGolfIcon} title="Golf 24/7" /> 
             <SideBarOption Icon={SportsKabaddiIcon} title="ESPN" /> 
             <SideBarOption Icon={ExpandLessIcon} title="Show Less" /> 
-
             <hr />
             <SideBarOption Icon={ExpandMoreIcon}  title="Channels" />            
                    

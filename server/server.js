@@ -72,7 +72,10 @@ app.post('/login', (req,res) => {
                 
                 const user = { 
                     email:  req.body.email,
-                    password: req.body.password
+                    password: req.body.password,
+                    userImage: req.body.userImage
+
+
                 }
                 console.log(user)
 
@@ -184,6 +187,93 @@ app.post('/v1/channels/getChannelDetail', (req,res) => {
     })
 })
 
+
+app.post('/newMessage', (req,res) => {
+   
+
+    const messageContent = {
+        message: req.body.message,
+        timeStamp: req.body.timeStamp,
+        user: req.body.user,
+        userImage: req.body.userImage,
+        channelId: req.body.channelId
+    }
+
+        const newMessage = new slackMessageModel(messageContent)
+
+
+        newMessage.save((err) => {
+            if (!err) {
+                console.log(`${messageContent} has been saved successfully`)                    
+
+                res.status(202).send(messageContent)
+               
+                
+    
+            } else {
+                // there was an error 
+                res.status(400).send(err)
+    
+            }
+        })
+        
+
+
+}) 
+
+
+
+app.post('/v1/channels/findMessage', (req,res) => {
+    const channel = req.body
+
+
+    slackMessageModel.find((err,data) => {
+        if (!err) {
+            console.log(typeof(data))
+            
+            console.log(data)    
+                            
+            // 201 -> created 
+            res.status(201).send(data)
+            
+
+        } else {
+            console.log(err)
+            res.status(500).send(err)
+        }
+
+        
+    } )
+})
+
+
+app.get('/v1/channels/findMessage/:roomID', (req,res) => {  
+
+
+    const roomID = req.params.roomID
+
+    const query = {
+        channelId: roomID
+    }
+
+    slackMessageModel.find(query,(err,data) => {
+        if (!err) {
+            console.log(typeof(data))
+            
+            console.log(data)    
+                            
+            // 201 -> created 
+            res.status(201).send(data)
+            
+
+        } else {
+            console.log(err)
+            res.status(500).send(err)
+        }
+
+        
+    } )
+})
 
 app.listen(port, () => console.log(`Listening on port : ${port}`))
 

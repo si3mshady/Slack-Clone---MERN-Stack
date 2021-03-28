@@ -2,7 +2,7 @@ import React,  {useState, useEffect} from 'react'
 import '../SidebarOption.css'
 import { useHistory } from 'react-router-dom'
 import Axios from 'axios'
-//add database connectio,
+//add database connection,
 
 // when the url needs to be changed programatically 
 

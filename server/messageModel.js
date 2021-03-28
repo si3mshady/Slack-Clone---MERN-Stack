@@ -5,7 +5,8 @@ const messageSchema = new mongoose.Schema({
     message: String,
     timeStamp: String,
     user: String,
-    userImage: String
+    userImage: String,
+    channelId: String
 
 })
 
