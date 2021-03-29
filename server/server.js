@@ -5,6 +5,7 @@ import slackChannelModel from './roomModel.js'; //dbmodel
 import userModel from './userModel.js'
 import slackMessageModel from './messageModel.js'
 // app config 
+import cors from 'cors';
 const app=express();
 const port = 9000;
 
@@ -12,17 +13,18 @@ const port = 9000;
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json())
-app.use((req,res,next) => {
-    // setting the response headers for open cors access 
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Headers", "*");
-    next();
+app.use(cors())
+// app.use((req,res,next) => {
+//     // setting the response headers for open cors access 
+//     // res.setHeader("Access-Control-Allow-Origin", "*");
+//     // res.setHeader("Access-Control-Allow-Headers", "*");
+//     // next();
 
-})
+// })
 // https://www.udemy.com/course/the-complete-web-development-bootcamp/learn/lecture/13559534#overview
 // db config 
-// const connection = "mongodb://db:27017/slackchannels";
-const connection = "mongodb://localhost:27017/slackchannels";
+const connection = "mongodb://db:27017/slackchannels";
+// const connection = "mongodb://localhost:27017/slackchannels";
 
 mongoose.connect(connection, {
  

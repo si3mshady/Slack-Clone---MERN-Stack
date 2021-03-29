@@ -26,7 +26,7 @@ export default function ChatInput({channelName, channelId, user}) {
                 channelId: channelId
             }
 
-            const url = "http://localhost:9000/newMessage"
+            const url = "http://aab21c606692441ee8c579f17675ba31-124668581.us-east-2.elb.amazonaws.com:9000/newMessage"
 
             Axios.post(url, newMessage).then(res => {
                 console.log('new Message loaded into database')

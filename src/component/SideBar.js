@@ -22,7 +22,7 @@ export default function SideBar({user}) {
     
 
     useEffect(() => { 
-        const url = "http://localhost:9000/v1/channels"
+        const url = "http://aab21c606692441ee8c579f17675ba31-124668581.us-east-2.elb.amazonaws.com:9000/v1/channels"
         Axios.get(url) .then(res => {
             console.log('channels loaded')
             const channelList = res.data;

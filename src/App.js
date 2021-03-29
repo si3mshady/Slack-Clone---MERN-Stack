@@ -10,7 +10,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState('3')  
+  const [user, setUser] = useState(null)  
   return (
     // BEM naming convention
     <div className="App"> 
@@ -30,9 +30,7 @@ function App() {
             <Chat user={user} />
           </Route>
 
-          <Route path="/room/">                 
-            <Chat user={user} />
-          </Route>
+        
 
         </Switch>
         

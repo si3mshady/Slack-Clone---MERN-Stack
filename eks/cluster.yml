@@ -1,0 +1,13 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: EKS-tiktokClone-Cluster
+  region: us-east-2
+
+nodeGroups:
+  - name: tiktokcluster
+    instanceType: t2.small
+    desiredCapacity: 3
+    ssh: # use existing EC2 key
+      publicKeyName: ohioPlayer

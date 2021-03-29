@@ -33,7 +33,7 @@ const handleLogo = (e) => {
         e.preventDefault()
        
         const user = {  email: email, password: password, userImage: logoURL  }
-        const url = "http://localhost:9000/login"
+        const url = "http://aab21c606692441ee8c579f17675ba31-124668581.us-east-2.elb.amazonaws.com:9000/login"
 
         Axios.post(url, user).then(res => {
             console.log('user loaded into database')

@@ -25,7 +25,7 @@ export default function SideBarOption({Icon, title, id, setNewChannel, addChanne
     } 
 
     const updateDatabase = (channelName) => {
-        const url = "http://localhost:9000/v1/channels/add"
+        const url = "http://aab21c606692441ee8c579f17675ba31-124668581.us-east-2.elb.amazonaws.com:9000/v1/channels/add"
         Axios.post(url, {
             id: Math.floor(Math.random() * 100000000),
             name: channelName

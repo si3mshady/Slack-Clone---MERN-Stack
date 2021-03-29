@@ -15,7 +15,7 @@ export default function Chat({user}) {
 
     useEffect(() => { 
 
-     const url = "http://localhost:9000/v1/channels/getChannelDetail"
+     const url = "http://aab21c606692441ee8c579f17675ba31-124668581.us-east-2.elb.amazonaws.com:9000/v1/channels/getChannelDetail"
         Axios.post(url, { name: roomID  }).then(res => {
             // console.log('Feteched from room details')
             const details = res.data
@@ -27,7 +27,7 @@ export default function Chat({user}) {
 
     useEffect(() => { 
 
-        const url = `http://localhost:9000/v1/channels/findMessage/${roomID}`
+        const url = `http://aab21c606692441ee8c579f17675ba31-124668581.us-east-2.elb.amazonaws.com:9000/v1/channels/findMessage/${roomID}`
            Axios.get(url, { name: roomID  }).then(res => {
                console.log('Feteched from room details')
                const details = res.data
