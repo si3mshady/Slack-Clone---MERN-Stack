@@ -2,13 +2,15 @@ version: "3.7"  # optional since v1.27.0
 services:
   #reactApp
   slackfrontend:
-    image: si3mshady/slackclone-fe:1
+    # image: si3mshady/slackclone-fe:1
+    build: .
     ports:
-      - "888:80"    #external:internal frontend 
+      - "888:3000"    #external:internal frontend 
     depends_on:
       - db
   nodebackend:
-    image: si3mshady/slackclone-be:1     
+    # image: si3mshady/slackclone-be:1     
+    build: server/
     ports: 
       - "9000:9000"    #external:internal 
     depends_on:
@@ -18,7 +20,7 @@ services:
               
   db:
     volumes:
-      - /Users/ellarnol/localSlackDatabase:/data/db
+      - /Users/elliottarnold/slack_db:/data/db
     image: mongo:latest
     ports:
       - "27017:27017"             

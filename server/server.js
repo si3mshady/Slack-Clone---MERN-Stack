@@ -29,7 +29,7 @@ const connection = "mongodb://db:27017/slackchannels";
 mongoose.connect(connection, {
  
     useNewUrlParser: true,
-    useCreateIndex: true,
+    // useCreateIndex: true,
     useUnifiedTopology: true
  
 }).then(() => {
@@ -48,6 +48,7 @@ mongoose.connect(connection, {
 
 
 app.get('/', (req,res) => {
+    console.log('connecting to route route "/"')
     res.status(200).send('Slack Clone')
 })
 
@@ -110,7 +111,7 @@ app.post('/login', (req,res) => {
 
 app.get('/v1/channels/', (req,res) => {
 
-
+    console.log('connecting to route route "/channels"')
     slackChannelModel.find((err,data) => {
         if (!err) {
             console.log(typeof(data))

@@ -10,7 +10,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState(null)  
+  const [user, setUser] = useState(false)  
   return (
     // BEM naming convention
     <div className="App"> 

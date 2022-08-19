@@ -33,7 +33,7 @@ const handleLogo = (e) => {
         e.preventDefault()
        
         const user = {  email: email, password: password, userImage: logoURL  }
-        const url = "http://localhost:9000/login"
+        const url = "http://nodebackend:9000/login"
 
         Axios.post(url, user).then(res => {
             console.log('user loaded into database')

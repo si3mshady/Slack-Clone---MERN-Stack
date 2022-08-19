@@ -1,11 +1,11 @@
-FROM node:alpine 
+FROM node:16
 WORKDIR /app
 COPY ./package.json ./package.json
 COPY ./server.js ./server.js
 COPY ./messageModel.js ./messageModel.js 
 COPY ./roomModel.js ./roomModel.js
 COPY ./userModel.js ./userModel.js
-RUN npm install 
+RUN yarn install 
 LABEL developer=si3mshady
 EXPOSE 9000
 CMD ["node", "server.js"]
