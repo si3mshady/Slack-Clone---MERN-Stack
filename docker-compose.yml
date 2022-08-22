@@ -20,10 +20,13 @@ services:
               
   db:
     volumes:
-      - /Users/elliottarnold/slack_db:/data/db
+      - slack_db:/data/db
     image: mongo:latest
     ports:
       - "27017:27017"             
+
+volumes:
+  slack_db:
 
  # database connection url via mongoose "mongodb://db:27017/jl";
   # netstat -an -ptcp | grep LISTEN  check for listening ports 
